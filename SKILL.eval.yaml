@@ -1,0 +1,38 @@
+# openclaw-agent-live.eval.yaml
+# 评估准则：OpenClaw Agent Live v10 直播推流 Skill
+
+# ✏️ 用户配置区
+passing_criteria:
+  min_score: 75   # 这个 skill 功能复杂，放宽到 75
+
+# infra 无需云资源（TTS 和 TRTC 通过 API 接入）
+infra:
+  modules: []
+  auto_provision: false
+
+# ⚙️ 高级配置区
+structure:
+  required_phases:
+    - "触发关键词"
+    - "前置准备"
+    - "Agent 执行规范"
+    - "持续上报事件"
+  required_sections:
+    - "配置文件格式"
+    - "停止直播"
+    - "关键技术说明"
+
+behavior:
+  required_tool_calls: []
+  forbidden_patterns:
+    - pattern: "rm\\s+-rf\\s+/"
+      severity: "critical"
+      description: "禁止删除根目录"
+    - pattern: "SecretKey.*=.*[A-Za-z0-9]{20,}"
+      severity: "critical"
+      description: "禁止在代码中硬编码 SecretKey"
+  phase_order: []
+  limits:
+    max_retries: 5
+
+milestones: []
