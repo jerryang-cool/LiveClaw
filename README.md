@@ -167,16 +167,46 @@ openclaw-agent-live/
 | [IM](https://cloud.tencent.com/product/im) | 双向交互（timbot 渠道） | 推荐 |
 | [TTS](https://cloud.tencent.com/product/tts) | 语音播报 Agent 状态 | 可选 |
 
-## 版本历史
+## 在 OpenClaw 中安装
 
-详见 [CHANGELOG.md](./CHANGELOG.md)
+本项目是 [OpenClaw](https://openclaw.ai) 平台的 Skill 插件。在 OpenClaw 环境中，可通过以下方式安装：
 
-| 版本 | 分支 | 说明 |
-|------|------|------|
-| **v1.0** | `main` | 发布版：Lighthouse 公网 + Pillow 帧渲染 + VP9/HEVC 视频 Avatar |
-| v22 | `archive/dual-pillow-vrm3d` | 架构转折版：Pillow 帧渲染 + Three.js VRM 3D Avatar |
-| v21 | `archive/dual-xvfb-videoavatar` | Xvfb 最终版：双模网络 + 浏览器端视频 Avatar |
-| v9 | `archive/cloudide-xvfb-serveravatar` | 初始版：CloudIDE 内网 + Xvfb + 服务端 Avatar |
+**方式一：从 ClawHub 安装（推荐）**
+
+```bash
+openclaw skills install openclaw-agent-live
+```
+
+> OpenClaw 会从 [ClawHub](https://clawhub.ai) 公共注册表下载并安装到当前工作区的 `skills/` 目录，下一个 session 自动识别。
+
+**方式二：手动安装**
+
+```bash
+# 克隆仓库
+git clone https://github.com/jerryang-cool/LiveClaw.git
+
+# 复制到 OpenClaw skills 目录（按优先级选择其一）
+# 工作区级别（最高优先级）
+cp -r LiveClaw ~/.openclaw/workspace/skills/openclaw-agent-live
+
+# 或全局级别
+cp -r LiveClaw ~/.openclaw/skills/openclaw-agent-live
+
+# 验证安装
+ls ~/.openclaw/skills/openclaw-agent-live/SKILL.md
+```
+
+**方式三：自动安装**
+
+执行 `setup.py --start` 时会自动完成以下操作：
+- 检测并安装缺失的 Python 依赖（av、numpy、Pillow）
+- 检测并安装 CJK 中文字体（仅 Linux）
+- 将本 Skill 安装到 OpenClaw skills 目录
+- 将预置子 Skill（email-skill、music-search、weather）安装到 skills 目录
+
+> ⚠️ Skill **必须**安装到 skills 目录，仅在当前对话中上传 zip 包不算安装——其他渠道（timbot、企业微信、Web）看不到。安装后所有渠道的 session 都能发现本 Skill 并执行直播上报规则。
+>
+> 📋 **Skills 加载优先级**（[官方文档](https://docs.openclaw.ai/zh-CN/tools/skills)）：工作区 `skills/` → 项目 `.agents/skills/` → 个人 `~/.agents/skills/` → 托管 `~/.openclaw/skills/` → 内置 → `extraDirs`
 
 ## 许可证
 

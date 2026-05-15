@@ -167,16 +167,46 @@ openclaw-agent-live/
 | [IM](https://www.tencentcloud.com/products/im) | Two-way interaction (timbot channel) | Recommended |
 | [TTS](https://www.tencentcloud.com/products/tts) | Voice broadcast of Agent status | Optional |
 
-## Version History
+## Install in OpenClaw
 
-See [CHANGELOG.md](./CHANGELOG.md) for details.
+This project is a Skill plugin for the [OpenClaw](https://openclaw.ai) platform. You can install it in an OpenClaw environment as follows:
 
-| Version | Branch | Description |
-|---------|--------|-------------|
-| **v1.0** | `main` | Release: Lighthouse public network + Pillow rendering + VP9/HEVC video Avatar |
-| v22 | `archive/dual-pillow-vrm3d` | Architecture pivot: Pillow rendering + Three.js VRM 3D Avatar |
-| v21 | `archive/dual-xvfb-videoavatar` | Xvfb final: Dual-mode network + browser-side video Avatar |
-| v9 | `archive/cloudide-xvfb-serveravatar` | Initial: CloudIDE internal + Xvfb + server-side Avatar |
+**Option 1: Install from ClawHub (Recommended)**
+
+```bash
+openclaw skills install openclaw-agent-live
+```
+
+> OpenClaw will download from the [ClawHub](https://clawhub.ai) public registry and install to your workspace's `skills/` directory. It will be auto-detected in the next session.
+
+**Option 2: Manual installation**
+
+```bash
+# Clone the repository
+git clone https://github.com/jerryang-cool/LiveClaw.git
+
+# Copy to an OpenClaw skills directory (choose by priority)
+# Workspace level (highest priority)
+cp -r LiveClaw ~/.openclaw/workspace/skills/openclaw-agent-live
+
+# Or global level
+cp -r LiveClaw ~/.openclaw/skills/openclaw-agent-live
+
+# Verify installation
+ls ~/.openclaw/skills/openclaw-agent-live/SKILL.md
+```
+
+**Option 3: Automatic installation**
+
+Running `setup.py --start` will automatically:
+- Detect and install missing Python dependencies (av, numpy, Pillow)
+- Detect and install CJK fonts (Linux only)
+- Install this Skill to the OpenClaw skills directory
+- Install bundled sub-skills (email-skill, music-search, weather) to the skills directory
+
+> ⚠️ The Skill **must** be installed to a skills directory. Simply uploading a zip in a chat session is not enough — other channels (timbot, WeCom, Web) won't see it. Once installed, all channel sessions can discover this Skill and follow the live streaming rules.
+>
+> 📋 **Skills loading priority** ([docs](https://docs.openclaw.ai/zh-CN/tools/skills)): workspace `skills/` → project `.agents/skills/` → personal `~/.agents/skills/` → managed `~/.openclaw/skills/` → built-in → `extraDirs`
 
 ## License
 
