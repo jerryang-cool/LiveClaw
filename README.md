@@ -124,12 +124,10 @@ python3 scripts/setup.py --status
 | 参数 | 来源 | 必填 | 说明 |
 |------|------|:---:|------|
 | `SDKAppID` | [TRTC 控制台](https://console.cloud.tencent.com/trtc/app) | ✅ | TRTC 应用 ID（需体验版或以上） |
-| `SecretKey` | TRTC 控制台 → 应用详情 | ✅ | TRTC 应用 SecretKey |
-| `CallbackToken` | [IM 控制台](https://console.cloud.tencent.com/im) | 推荐 | IM 消息回调鉴权 Token（启用双向交互） |
+| `SecretKey` | [TRTC 控制台](https://console.cloud.tencent.com/trtc/app) | ✅ | TRTC 应用 SecretKey |
+| `CallbackToken` | [IM 控制台](https://console.cloud.tencent.com/im/callback-setting) | 推荐 | IM 消息回调鉴权 Token（启用双向交互） |
 | `CAM SecretId` | [CAM 密钥管理](https://console.cloud.tencent.com/cam/capi) | 可选 | 腾讯云 API 密钥 ID（启用 TTS 语音播报） |
-| `CAM SecretKey` | CAM 密钥管理 | 可选 | 腾讯云 API 密钥 Key |
-
-> ⚠️ 配置文件示例见 [config.json.example](./config.json.example)
+| `CAM SecretKey` | [CAM 密钥管理](https://console.cloud.tencent.com/cam/capi) | 可选 | 腾讯云 API 密钥 Key |
 
 ## 项目结构
 

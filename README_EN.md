@@ -123,13 +123,11 @@ python3 scripts/setup.py --status
 
 | Parameter | Source | Required | Description |
 |-----------|--------|:--------:|-------------|
-| `SDKAppID` | [TRTC Console](https://console.cloud.tencent.com/trtc/app) | ✅ | TRTC App ID (Trial Edition or above) |
-| `SecretKey` | TRTC Console → App Details | ✅ | TRTC App SecretKey |
-| `CallbackToken` | [IM Console](https://console.cloud.tencent.com/im) | Recommended | IM callback auth token (enables two-way interaction) |
-| `CAM SecretId` | [CAM Key Management](https://console.cloud.tencent.com/cam/capi) | Optional | Tencent Cloud API key ID (enables TTS voice broadcast) |
-| `CAM SecretKey` | CAM Key Management | Optional | Tencent Cloud API key |
-
-> ⚠️ See [config.json.example](./config.json.example) for a configuration file template.
+| `SDKAppID` | [TRTC Console](https://console.trtc.io/app) | ✅ | TRTC App ID (Trial Edition or above) |
+| `SecretKey` | [TRTC Console](https://console.trtc.io/app) | ✅ | TRTC App SecretKey |
+| `CallbackToken` | [IM Console](https://console.trtc.io/chat/callback-setting) | Recommended | IM callback auth token (enables two-way interaction) |
+| `CAM SecretId` | [CAM Key Management](https://console.intl.cloud.tencent.com/cam/capi) | Optional | Tencent Cloud API key ID (enables TTS voice broadcast) |
+| `CAM SecretKey` | [CAM Key Management](https://console.intl.cloud.tencent.com/cam/capi) | Optional | Tencent Cloud API key |
 
 ## Project Structure
 
