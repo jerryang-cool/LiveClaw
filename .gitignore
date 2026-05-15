@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Config with secrets
+config.json
+
+# Runtime data
+*.log
+*.pid
+work_dir/
+tmp/
+
+# Audio/TTS temp files
+*.wav
+*.mp3
+*.pcm
+
+# Rendered frames
+*.raw
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OpenClaw runtime
+.openclaw/
+
+# Environment variables
+.env
+.env.*

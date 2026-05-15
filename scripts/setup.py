@@ -434,14 +434,6 @@ def _install_bundled_skills(cfg: dict):
     if updated:
         print(f"[↑] Bundled skills updated: {', '.join(updated)}")
 
-    # 子 skill 的 SKILL.md 在 zip 包中重命名为 SKILL_DOC.md（避免 zip 校验冲突），安装后恢复
-    for skill_name in bundled_skills:
-        dst = openclaw_skills_dir / skill_name
-        doc = dst / "SKILL_DOC.md"
-        target = dst / "SKILL.md"
-        if doc.exists() and not target.exists():
-            doc.rename(target)
-
     if not installed and not updated:
         existing = [s for s in bundled_skills if (openclaw_skills_dir / s).is_dir()]
         if existing:
