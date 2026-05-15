@@ -202,8 +202,6 @@ Running `setup.py --start` will automatically:
 - Install this Skill to the OpenClaw skills directory
 - Install bundled sub-skills (email-skill, music-search, weather) to the skills directory
 
-> ⚠️ The Skill **must** be installed to a skills directory. Simply uploading a zip in a chat session is not enough — other channels (timbot, WeCom, Web) won't see it. Once installed, all channel sessions can discover this Skill and follow the live streaming rules.
->
 > 📋 **Skills loading priority** ([docs](https://docs.openclaw.ai/zh-CN/tools/skills)): workspace `skills/` → project `.agents/skills/` → personal `~/.agents/skills/` → managed `~/.openclaw/skills/` → built-in → `extraDirs`
 
 ## License

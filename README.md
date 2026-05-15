@@ -202,8 +202,6 @@ ls ~/.openclaw/skills/openclaw-agent-live/SKILL.md
 - 将本 Skill 安装到 OpenClaw skills 目录
 - 将预置子 Skill（email-skill、music-search、weather）安装到 skills 目录
 
-> ⚠️ Skill **必须**安装到 skills 目录，仅在当前对话中上传 zip 包不算安装——其他渠道（timbot、企业微信、Web）看不到。安装后所有渠道的 session 都能发现本 Skill 并执行直播上报规则。
->
 > 📋 **Skills 加载优先级**（[官方文档](https://docs.openclaw.ai/zh-CN/tools/skills)）：工作区 `skills/` → 项目 `.agents/skills/` → 个人 `~/.agents/skills/` → 托管 `~/.openclaw/skills/` → 内置 → `extraDirs`
 
 ## 许可证
