@@ -165,7 +165,7 @@ openclaw-agent-live/
 |---------|---------|:--------:|
 | [TRTC](https://www.tencentcloud.com/products/trtc) | RTMP push + viewer pull streaming | ✅ |
 | [IM](https://www.tencentcloud.com/products/im) | Two-way interaction (timbot channel) | Recommended |
-| [TTS](https://www.tencentcloud.com/products/tts) | Voice broadcast of Agent status | Optional |
+| [TTS](https://cloud.tencent.com/document/product/647/131300) | Voice broadcast of Agent status | Optional |
 
 ## Install in OpenClaw
 

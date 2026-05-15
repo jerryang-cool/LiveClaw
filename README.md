@@ -165,7 +165,7 @@ openclaw-agent-live/
 |------|------|:---:|
 | [TRTC](https://cloud.tencent.com/product/trtc) | RTMP 推流 + 观众拉流 | ✅ |
 | [IM](https://cloud.tencent.com/product/im) | 双向交互（timbot 渠道） | 推荐 |
-| [TTS](https://cloud.tencent.com/product/tts) | 语音播报 Agent 状态 | 可选 |
+| [TTS](https://cloud.tencent.com/document/product/647/131300) | 语音播报 Agent 状态 | 可选 |
 
 ## 在 OpenClaw 中安装
 
