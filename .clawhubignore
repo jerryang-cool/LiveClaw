@@ -22,7 +22,9 @@ Thumbs.db
 .git/
 .gitignore
 
-# Security policy (not needed in skill package)
+# Evaluation / internal metadata (not needed in skill package)
+SKILL.eval.yaml
+_meta.json
 SECURITY.md
 CHANGELOG.md
 
@@ -31,3 +33,6 @@ README_EN.md
 config.json.example
 config_template.json
 requirements.txt
+skills/email-skill/README.md
+skills/email-skill/openclaw_integration.md
+skills/email-skill/requirements.txt
