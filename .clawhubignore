@@ -1,0 +1,33 @@
+# ClawHub publish ignore rules
+# Binary files (ClawHub only accepts text files)
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.ico
+*.webp
+*.mov
+*.webm
+*.ttf
+
+# License (ClawHub enforces MIT-0 for all published skills)
+LICENSE
+
+# IDE/OS files
+.cursor/
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Security policy (not needed in skill package)
+SECURITY.md
+CHANGELOG.md
+
+# Documentation (not needed in skill package)
+README_EN.md
+config.json.example
+config_template.json
+requirements.txt

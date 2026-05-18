@@ -1850,40 +1850,51 @@
 
     // ── Avatar Video Source (Safari ↔ Chrome compatibility) ──
     // Safari 不支持 VP9 Alpha WebM，需要 HEVC Alpha MOV
+    // 优先使用本地文件，本地不存在时回退到 GitHub raw URL
     const _isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     let _avatarSupported = true;
+    const _AVATAR_GITHUB_BASE = 'https://raw.githubusercontent.com/jerryang-cool/LiveClaw/main/assets/avatar';
 
     (function _initAvatarSources() {
       const idleVideo = document.getElementById('avatar-idle');
       const actionVideo = document.getElementById('avatar-action');
 
-      if (_isSafari) {
-        // Safari: 使用 HEVC Alpha .mov（如果存在）
-        const idleMov = 'assets/avatar/idle_alpha.mov';
-        const actionMov = 'assets/avatar/action_alpha.mov';
+      function _checkLocal(url, onSuccess, onFail) {
+        const req = new XMLHttpRequest();
+        req.open('HEAD', url, false);
+        try { req.send(); return req.status === 200; } catch(e) { return false; }
+      }
 
-        // 检测 .mov 文件是否存在
-        const testReq = new XMLHttpRequest();
-        testReq.open('HEAD', idleMov, false); // 同步检测
-        try {
-          testReq.send();
-          if (testReq.status === 200) {
-            idleVideo.src = idleMov;
-            actionVideo.src = actionMov;
-            addLog('Avatar: Safari detected → using HEVC Alpha .mov', 'ok');
-          } else {
-            _avatarSupported = false;
-            addLog('Avatar: Safari detected but .mov files not found → avatar disabled', 'err');
-          }
-        } catch(e) {
-          _avatarSupported = false;
-          addLog('Avatar: Safari .mov check failed → avatar disabled', 'err');
+      if (_isSafari) {
+        const localIdle = 'assets/avatar/idle_alpha.mov';
+        const localAction = 'assets/avatar/action_alpha.mov';
+        const remoteIdle = _AVATAR_GITHUB_BASE + '/idle_alpha.mov';
+        const remoteAction = _AVATAR_GITHUB_BASE + '/action_alpha.mov';
+
+        if (_checkLocal(localIdle)) {
+          idleVideo.src = localIdle;
+          actionVideo.src = localAction;
+          addLog('Avatar: Safari → local HEVC Alpha .mov', 'ok');
+        } else {
+          idleVideo.src = remoteIdle;
+          actionVideo.src = remoteAction;
+          addLog('Avatar: Safari → GitHub HEVC Alpha .mov (local not found)', 'ok');
         }
       } else {
-        // Chrome / Edge / Firefox: 使用 VP9 Alpha .webm
-        idleVideo.src = 'assets/avatar/idle_alpha.webm';
-        actionVideo.src = 'assets/avatar/action_alpha.webm';
-        addLog('Avatar: VP9 Alpha .webm loaded', 'ok');
+        const localIdle = 'assets/avatar/idle_alpha.webm';
+        const localAction = 'assets/avatar/action_alpha.webm';
+        const remoteIdle = _AVATAR_GITHUB_BASE + '/idle_alpha.webm';
+        const remoteAction = _AVATAR_GITHUB_BASE + '/action_alpha.webm';
+
+        if (_checkLocal(localIdle)) {
+          idleVideo.src = localIdle;
+          actionVideo.src = localAction;
+          addLog('Avatar: VP9 Alpha .webm (local)', 'ok');
+        } else {
+          idleVideo.src = remoteIdle;
+          actionVideo.src = remoteAction;
+          addLog('Avatar: VP9 Alpha .webm (GitHub fallback)', 'ok');
+        }
       }
     })();
 
@@ -2033,6 +2044,18 @@
         await _fetchUserSig();
         console.log('Login popup triggered');
         setTimeout(showLoginPopup, 500);
+    // ── Assets Fallback: GitHub raw URL when local files missing ──
+    const _ASSETS_GITHUB_BASE = 'https://raw.githubusercontent.com/jerryang-cool/LiveClaw/main/';
+    document.querySelectorAll('img[src^="assets/"]').forEach(img => {
+      const originalSrc = img.getAttribute('src');
+      img.onerror = function() {
+        if (!this.dataset.fallback) {
+          this.dataset.fallback = '1';
+          this.src = _ASSETS_GITHUB_BASE + originalSrc;
+        }
+      };
+    });
+
       } catch (e) {
         console.error('Error in initialization:', e);
       }

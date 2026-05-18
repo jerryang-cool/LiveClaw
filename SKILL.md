@@ -1,6 +1,16 @@
 ---
 name: openclaw-agent-live
 description: 将 OpenClaw Agent 的完整推理链路实时推流到 TRTC 房间，支持虚拟形象叠加（浏览器端渲染）、TTS 语音播报 Agent 状态、双向交互（timbot IM 单聊触发 Agent 执行），支持公网 Lighthouse IP 访问。
+version: 1.0.1
+metadata:
+  openclaw:
+    emoji: "🦞"
+    requires:
+      bins:
+        - python3
+    os:
+      - linux
+      - darwin
 ---
 
 # openclaw-agent-live

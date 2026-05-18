@@ -234,6 +234,43 @@ def deploy_scripts(cfg: dict):
     print(f"  [+] config.json → {CONFIG_F}")
 
 
+# ── GitHub Avatar 下载（ClawHub 包不含二进制时的回退方案）─────
+AVATAR_GITHUB_BASE = "https://raw.githubusercontent.com/jerryang-cool/LiveClaw/main/assets/avatar"
+AVATAR_FILES = [
+    "idle_alpha.webm",
+    "action_alpha.webm",
+    "idle_alpha.mov",
+    "action_alpha.mov",
+]
+
+def _download_avatar_from_github(assets_dst: Path):
+    """从 GitHub raw URL 下载 avatar 视频文件到工作目录"""
+    from urllib.request import urlretrieve
+    avatar_dst = assets_dst / "avatar"
+    avatar_dst.mkdir(parents=True, exist_ok=True)
+
+    downloaded = 0
+    for fname in AVATAR_FILES:
+        dst_file = avatar_dst / fname
+        if dst_file.exists():
+            continue
+        url = f"{AVATAR_GITHUB_BASE}/{fname}"
+        try:
+            print(f"  [↓] Downloading {fname} ...")
+            urlretrieve(url, str(dst_file))
+            size_mb = dst_file.stat().st_size / (1024 * 1024)
+            print(f"  [+] {fname} ({size_mb:.1f} MB)")
+            downloaded += 1
+        except Exception as e:
+            print(f"  [!] Failed to download {fname}: {e}")
+    if downloaded > 0:
+        print(f"  [+] Avatar files downloaded from GitHub ({downloaded} files)")
+    elif any((avatar_dst / f).exists() for f in AVATAR_FILES):
+        print(f"  [=] Avatar files already present")
+    else:
+        print(f"  [!] Avatar download failed — viewer will use GitHub URL directly")
+
+
 # ── 确保 assets 已部署到工作目录 ──────────────────────────────
 def _ensure_assets_deployed(cfg: dict):
     """检查工作目录中是否存在 assets/ 及其资源文件。
@@ -280,8 +317,8 @@ def _ensure_assets_deployed(cfg: dict):
                 break
 
     if source_assets is None:
-        print("  [!] Cannot find assets source directory")
-        print("      (Expected: <skill>/assets/avatar/*.webm)")
+        print("  [!] Cannot find local assets/avatar — downloading from GitHub...")
+        _download_avatar_from_github(assets_dst)
         return
 
     # 执行复制（防御 source == dst 的情况）
@@ -433,6 +470,14 @@ def _install_bundled_skills(cfg: dict):
         print(f"[+] Bundled skills installed to {openclaw_skills_dir}: {', '.join(installed)}")
     if updated:
         print(f"[↑] Bundled skills updated: {', '.join(updated)}")
+
+    # 子 skill 的 SKILL.md 在包中命名为 SKILL_DOC.md（避免 ClawHub 冲突），安装后恢复
+    for skill_name in bundled_skills:
+        dst = openclaw_skills_dir / skill_name
+        doc = dst / "SKILL_DOC.md"
+        target = dst / "SKILL.md"
+        if doc.exists() and not target.exists():
+            doc.rename(target)
 
     if not installed and not updated:
         existing = [s for s in bundled_skills if (openclaw_skills_dir / s).is_dir()]

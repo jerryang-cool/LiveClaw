@@ -177,6 +177,19 @@ class FrameRenderer:
                 symbol_file = c
                 break
 
+        # GitHub 回退：本地无 Symbols.ttf 时下载（仅 3KB）
+        if symbol_file is None:
+            _gh_symbol_url = "https://raw.githubusercontent.com/jerryang-cool/LiveClaw/main/assets/fonts/Symbols.ttf"
+            _local_symbol = self._work_dir / "assets" / "fonts" / "Symbols.ttf"
+            try:
+                _local_symbol.parent.mkdir(parents=True, exist_ok=True)
+                from urllib.request import urlretrieve
+                urlretrieve(_gh_symbol_url, str(_local_symbol))
+                symbol_file = str(_local_symbol)
+                self._log(f"Symbol font downloaded from GitHub: {symbol_file}")
+            except Exception as e:
+                self._log(f"Symbol font download failed: {e}", "WARN")
+
         # ── 3. 构建字体对象 ──
         if cjk_file:
             self._log(f"CJK font loaded: {cjk_file}")

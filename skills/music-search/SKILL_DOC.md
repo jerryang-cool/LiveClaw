@@ -1,3 +1,10 @@
+---
+name: music-search
+description: Multi-source music search and streaming. Search songs from 10+ platforms and stream to TRTC rooms.
+description_zh: "多源音乐搜索与推流，支持10+平台搜索并推流到TRTC房间"
+description_en: "Multi-source music search and TRTC streaming from 10+ platforms"
+---
+
 # music-search 多源音乐下载技能
 
 支持从多个音乐平台搜索并下载MP3文件。
